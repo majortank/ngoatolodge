@@ -46,7 +46,8 @@
             <!-- Contact Form -->
             <div class="lg:col-span-3">
                 <div class="bg-white p-8 lg:p-12 rounded-2xl shadow-2xl">
-                    <form id="booking-form" class="space-y-6">
+                    <div id="form-message" class="mb-6 hidden"></div>
+                    <form id="booking-form" class="space-y-6" action="api/contact.php" method="POST">
                         <!-- Name and Email Row -->
                         <div class="grid md:grid-cols-2 gap-6">
                             <div>
@@ -90,9 +91,12 @@
                         </div>
                         
                         <!-- Submit Button -->
-                        <button type="submit" 
-                                class="w-full bg-gradient-to-r from-amber-400 to-amber-500 text-amber-900 font-bold py-4 px-8 rounded-lg transition-all duration-300 hover:from-amber-500 hover:to-amber-600 hover:-translate-y-1 hover:shadow-xl">
-                            Send Booking Inquiry
+                        <button type="submit" id="submit-btn"
+                                class="w-full bg-gradient-to-r from-amber-400 to-amber-500 text-amber-900 font-bold py-4 px-8 rounded-lg transition-all duration-300 hover:from-amber-500 hover:to-amber-600 hover:-translate-y-1 hover:shadow-xl disabled:opacity-50 disabled:cursor-not-allowed disabled:transform-none">
+                            <span class="btn-text">Send Booking Inquiry</span>
+                            <span class="btn-loading hidden">
+                                <i class="fas fa-spinner fa-spin mr-2"></i>Sending...
+                            </span>
                         </button>
                     </form>
                 </div>

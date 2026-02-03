@@ -203,7 +203,7 @@ document.addEventListener('keydown', (e) => {
     }
 });
 
-// Contact form
+// Contact form with PHP mailer
 const bookingForm = document.getElementById('booking-form');
 
 if (bookingForm) {
@@ -214,40 +214,68 @@ if (bookingForm) {
     
     if (checkinInput && checkoutInput) {
         checkinInput.setAttribute('min', today);
-        checkoutInput.setAttribute('min', today);
         
         checkinInput.addEventListener('change', function() {
-            checkoutInput.setAttribute('min', this.value);
+            const checkinDate = new Date(this.value);
+            checkinDate.setDate(checkinDate.getDate() + 1);
+            checkoutInput.setAttribute('min', checkinDate.toISOString().split('T')[0]);
+            
+            // Clear checkout if it's before new minimum
+            if (checkoutInput.value && new Date(checkoutInput.value) <= new Date(this.value)) {
+                checkoutInput.value = '';
+            }
         });
     }
     
-    bookingForm.addEventListener('submit', (e) => {
+    bookingForm.addEventListener('submit', async function(e) {
         e.preventDefault();
         
-        const formData = {
-            name: document.getElementById('name').value,
-            email: document.getElementById('email').value,
-            phone: document.getElementById('phone').value,
-            checkin: document.getElementById('checkin').value,
-            checkout: document.getElementById('checkout').value,
-            message: document.getElementById('message').value
-        };
+        const form = e.target;
+        const formData = new FormData(form);
+        const submitBtn = document.getElementById('submit-btn');
+        const btnText = submitBtn.querySelector('.btn-text');
+        const btnLoading = submitBtn.querySelector('.btn-loading');
+        const messageDiv = document.getElementById('form-message');
         
-        const emailBody = `
-Name: ${formData.name}
-Email: ${formData.email}
-Phone: ${formData.phone}
-Check-in: ${formData.checkin}
-Check-out: ${formData.checkout}
-Message: ${formData.message}
-        `.trim();
+        // Show loading state
+        submitBtn.disabled = true;
+        btnText.classList.add('hidden');
+        btnLoading.classList.remove('hidden');
+        messageDiv.classList.add('hidden');
         
-        const mailtoLink = `mailto:ngoatomogoshadi7@gmail.com?subject=Booking Inquiry from ${encodeURIComponent(formData.name)}&body=${encodeURIComponent(emailBody)}`;
-        
-        window.location.href = mailtoLink;
-        
-        alert('Thank you for your inquiry! Your email client will open to send your booking request.');
-        bookingForm.reset();
+        try {
+            const response = await fetch('api/contact.php', {
+                method: 'POST',
+                body: formData
+            });
+            
+            const result = await response.json();
+            
+            // Show message
+            messageDiv.className = `mb-6 p-4 rounded-lg ${result.success ? 'bg-green-100 border border-green-300 text-green-700' : 'bg-red-100 border border-red-300 text-red-700'}`;
+            messageDiv.textContent = result.message;
+            messageDiv.classList.remove('hidden');
+            
+            // Reset form if successful
+            if (result.success) {
+                form.reset();
+                
+                // Scroll to message
+                messageDiv.scrollIntoView({ behavior: 'smooth', block: 'center' });
+            }
+            
+        } catch (error) {
+            console.error('Form submission error:', error);
+            messageDiv.className = 'mb-6 p-4 rounded-lg bg-red-100 border border-red-300 text-red-700';
+            messageDiv.textContent = 'An error occurred. Please try again or contact us directly.';
+            messageDiv.classList.remove('hidden');
+        } finally {
+            // Reset button state
+            submitBtn.disabled = false;
+            btnText.classList.remove('hidden');
+            btnLoading.classList.add('hidden');
+        }
+    });
     });
 }
 
