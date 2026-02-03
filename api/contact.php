@@ -64,7 +64,7 @@ try {
         exit;
     }
     
-    // Send emails using simple email service
+    // Send emails using PHP mail() function
     $emailService = new SimpleEmailService();
     $result = $emailService->sendContactForm($formData);
     

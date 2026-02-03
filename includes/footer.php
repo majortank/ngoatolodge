@@ -276,7 +276,6 @@ if (bookingForm) {
             btnLoading.classList.add('hidden');
         }
     });
-    });
 }
 
 // Smooth scrolling for anchor links
