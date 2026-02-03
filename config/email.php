@@ -22,16 +22,24 @@ if (file_exists($envFile)) {
 }
 
 return [
-    // SMTP settings
+    // Email service type: 'smtp' or 'mail'
+    // Use 'mail' for cPanel/shared hosting (default)
+    // Use 'smtp' for custom SMTP servers (requires PHPMailer)
+    'service' => getenv('EMAIL_SERVICE') ?: 'mail',
+    
+    // SMTP settings (only used when service='smtp')
     'smtp_host' => getenv('SMTP_HOST') ?: 'smtp.gmail.com',
     'smtp_port' => getenv('SMTP_PORT') ?: 587,
     'smtp_secure' => getenv('SMTP_SECURE') ?: 'tls',
-    'smtp_username' => getenv('SMTP_USERNAME') ?: 'thabo.tankiso.thebe@gmail.com',
+    'smtp_username' => getenv('SMTP_USERNAME') ?: 'ngoatomogoshadi7@gmail.com',
     'smtp_password' => getenv('SMTP_PASSWORD') ?: '', // Set via .env or environment
     
     // Basic email settings
-    'from_email' => getenv('FROM_EMAIL') ?: 'thabo.tankiso.thebe@gmail.com',
+    // from_email: Your domain email (e.g., info@yourdomain.com) - update with your actual domain
+    'from_email' => getenv('FROM_EMAIL') ?: 'info@ngoatom.co.za',
     'from_name' => getenv('FROM_NAME') ?: 'Ngoato Mogoshadi Lodge',
-    'reply_to' => getenv('REPLY_TO') ?: 'thabo.tankiso.thebe@gmail.com',
-    'admin_email' => getenv('ADMIN_EMAIL') ?: 'thabo.tankiso.thebe@gmail.com'
+    // reply_to: Where guests can reply (your domain email)
+    'reply_to' => getenv('REPLY_TO') ?: 'info@ngoatom.co.za',
+    // admin_email: Where booking notifications are sent (your Gmail)
+    'admin_email' => getenv('ADMIN_EMAIL') ?: 'ngoatomogoshadi7@gmail.com'
 ];
