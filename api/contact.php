@@ -1,5 +1,6 @@
 <?php
 header('Content-Type: application/json');
+// Use simple mail() flow for cPanel/shared hosting
 require_once __DIR__ . '/../includes/SimpleEmailService.php';
 
 // Enable CORS if needed
@@ -64,7 +65,7 @@ try {
         exit;
     }
     
-    // Send emails using PHP mail() function
+    // Send emails using PHP mail() (cPanel-friendly)
     $emailService = new SimpleEmailService();
     $result = $emailService->sendContactForm($formData);
     

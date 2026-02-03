@@ -3,7 +3,7 @@
         'name' => 'ngoatolodge/website',
         'pretty_version' => 'dev-master',
         'version' => 'dev-master',
-        'reference' => '081befe06c05c2227f0a26fb7711b8daa7f90463',
+        'reference' => 'd14e488b7f993bc67443a79f5dde72435be18cf0',
         'type' => 'project',
         'install_path' => __DIR__ . '/../../',
         'aliases' => array(),
@@ -13,7 +13,7 @@
         'ngoatolodge/website' => array(
             'pretty_version' => 'dev-master',
             'version' => 'dev-master',
-            'reference' => '081befe06c05c2227f0a26fb7711b8daa7f90463',
+            'reference' => 'd14e488b7f993bc67443a79f5dde72435be18cf0',
             'type' => 'project',
             'install_path' => __DIR__ . '/../../',
             'aliases' => array(),
