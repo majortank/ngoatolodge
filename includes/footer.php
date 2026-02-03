@@ -323,18 +323,31 @@ document.querySelectorAll('a[href^="#"]').forEach(anchor => {
     });
 });
 
-// Scroll animations
+// Scroll animations (disabled on small screens and as fallback)
 const observeElements = (selector, options = {}) => {
     const elements = document.querySelectorAll(selector);
+    const supportsIO = 'IntersectionObserver' in window;
+    const enableAnimations = supportsIO && window.innerWidth >= 768; // Skip animations on mobile for reliability
+
+    if (!enableAnimations) {
+        elements.forEach(el => {
+            el.style.opacity = '1';
+            el.style.transform = 'translateY(0)';
+            el.style.transition = '';
+        });
+        return;
+    }
+
     const observer = new IntersectionObserver((entries) => {
         entries.forEach(entry => {
             if (entry.isIntersecting) {
                 entry.target.classList.add('animate-fade-in-up');
                 entry.target.style.opacity = '1';
                 entry.target.style.transform = 'translateY(0)';
+                observer.unobserve(entry.target); // prevent re-trigger
             }
         });
-    }, { threshold: 0.1, rootMargin: '0px 0px -50px 0px', ...options });
+    }, { threshold: 0.05, rootMargin: '0px 0px -30px 0px', ...options });
     
     elements.forEach(el => {
         el.style.opacity = '0';
@@ -346,7 +359,7 @@ const observeElements = (selector, options = {}) => {
 
 // Apply scroll animations
 observeElements('section');
-observeElements('.gallery-item', { threshold: 0.2 });
+observeElements('.gallery-item', { threshold: 0.1 });
 </script>
 
 </body>

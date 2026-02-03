@@ -8,19 +8,19 @@
         </div>
         
         <!-- Gallery Filter Buttons -->
-        <div class="flex justify-center space-x-4 mb-12">
-            <button class="filter-btn px-8 py-3 bg-amber-400 text-amber-900 rounded-full font-semibold transition-all duration-300 hover:bg-amber-500 hover:-translate-y-1 hover:shadow-lg" data-filter="all">
+        <div class="flex flex-wrap justify-center gap-3 mb-8 md:mb-12">
+            <button class="filter-btn px-6 md:px-8 py-2 md:py-3 bg-amber-400 text-amber-900 rounded-full font-semibold transition-all duration-300 hover:bg-amber-500 text-sm md:text-base" data-filter="all">
                 All
             </button>
-            <button class="filter-btn px-8 py-3 bg-white border-2 border-amber-400 text-amber-700 rounded-full font-semibold transition-all duration-300 hover:bg-amber-400 hover:text-amber-900 hover:-translate-y-1 hover:shadow-lg" data-filter="indoor">
+            <button class="filter-btn px-6 md:px-8 py-2 md:py-3 bg-white border-2 border-amber-400 text-amber-700 rounded-full font-semibold transition-all duration-300 hover:bg-amber-400 hover:text-amber-900 text-sm md:text-base" data-filter="indoor">
                 Indoor
             </button>
-            <button class="filter-btn px-8 py-3 bg-white border-2 border-amber-400 text-amber-700 rounded-full font-semibold transition-all duration-300 hover:bg-amber-400 hover:text-amber-900 hover:-translate-y-1 hover:shadow-lg" data-filter="outdoor">
+            <button class="filter-btn px-6 md:px-8 py-2 md:py-3 bg-white border-2 border-amber-400 text-amber-700 rounded-full font-semibold transition-all duration-300 hover:bg-amber-400 hover:text-amber-900 text-sm md:text-base" data-filter="outdoor">
                 Outdoor
             </button>
         </div>
         
-        <div class="grid md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-6" id="gallery-grid">
+        <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-4 md:gap-6" id="gallery-grid">
             <?php
             // Indoor images
             $indoor_images = [
@@ -57,14 +57,14 @@
             // Render indoor images
             foreach ($indoor_images as $image):
             ?>
-                <div class="gallery-item group relative overflow-hidden rounded-2xl cursor-pointer aspect-square bg-stone-100" data-category="indoor">
+                <div class="gallery-item group relative overflow-hidden rounded-lg md:rounded-2xl cursor-pointer aspect-square bg-stone-100" data-category="indoor">
                     <img src="<?php echo $image['src']; ?>" alt="<?php echo $image['alt']; ?>" class="w-full h-full object-cover transition-transform duration-500 group-hover:scale-110" loading="lazy">
-                    <div class="absolute inset-0 bg-gradient-to-t from-amber-600/80 via-transparent to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300 flex flex-col justify-end items-center p-6">
+                    <div class="absolute inset-0 bg-gradient-to-t from-amber-600/80 via-transparent to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300 flex flex-col justify-end items-center p-4 md:p-6">
                         <div class="text-white text-center">
-                            <svg class="w-12 h-12 mx-auto mb-3" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                            <svg class="w-8 h-8 md:w-12 md:h-12 mx-auto mb-2 md:mb-3" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                                 <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0zM10 7v3m0 0v3m0-3h3m-3 0H7"/>
                             </svg>
-                            <span class="text-lg font-semibold uppercase tracking-wider"><?php echo $image['label']; ?></span>
+                            <span class="text-sm md:text-lg font-semibold uppercase tracking-wider"><?php echo $image['label']; ?></span>
                         </div>
                     </div>
                 </div>
@@ -74,14 +74,14 @@
             // Render outdoor images
             foreach ($outdoor_images as $image):
             ?>
-                <div class="gallery-item group relative overflow-hidden rounded-2xl cursor-pointer aspect-square bg-stone-100" data-category="outdoor">
+                <div class="gallery-item group relative overflow-hidden rounded-lg md:rounded-2xl cursor-pointer aspect-square bg-stone-100" data-category="outdoor">
                     <img src="<?php echo $image['src']; ?>" alt="<?php echo $image['alt']; ?>" class="w-full h-full object-cover transition-transform duration-500 group-hover:scale-110" loading="lazy">
-                    <div class="absolute inset-0 bg-gradient-to-t from-amber-600/80 via-transparent to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300 flex flex-col justify-end items-center p-6">
+                    <div class="absolute inset-0 bg-gradient-to-t from-amber-600/80 via-transparent to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300 flex flex-col justify-end items-center p-4 md:p-6">
                         <div class="text-white text-center">
-                            <svg class="w-12 h-12 mx-auto mb-3" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                            <svg class="w-8 h-8 md:w-12 md:h-12 mx-auto mb-2 md:mb-3" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                                 <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0zM10 7v3m0 0v3m0-3h3m-3 0H7"/>
                             </svg>
-                            <span class="text-lg font-semibold uppercase tracking-wider"><?php echo $image['label']; ?></span>
+                            <span class="text-sm md:text-lg font-semibold uppercase tracking-wider"><?php echo $image['label']; ?></span>
                         </div>
                     </div>
                 </div>
@@ -91,19 +91,19 @@
 </section>
 
 <!-- Lightbox Modal -->
-<div id="lightbox" class="fixed inset-0 bg-black/95 hidden items-center justify-center z-50">
-    <button class="absolute top-6 right-6 text-white text-4xl hover:text-amber-400 transition-colors" id="close-lightbox">
+<div id="lightbox" class="fixed inset-0 bg-black/95 hidden items-center justify-center z-50 p-4">
+    <button class="absolute top-4 right-4 md:top-6 md:right-6 text-white text-3xl md:text-4xl hover:text-amber-400 transition-colors z-10" id="close-lightbox">
         &times;
     </button>
-    <button class="absolute left-6 top-1/2 transform -translate-y-1/2 text-white text-3xl hover:text-amber-400 transition-colors" id="prev-image">
-        <svg class="w-8 h-8" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+    <button class="absolute left-2 md:left-6 top-1/2 transform -translate-y-1/2 text-white hover:text-amber-400 transition-colors z-10" id="prev-image">
+        <svg class="w-6 h-6 md:w-8 md:h-8" fill="none" stroke="currentColor" viewBox="0 0 24 24">
             <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 19l-7-7 7-7"/>
         </svg>
     </button>
-    <button class="absolute right-6 top-1/2 transform -translate-y-1/2 text-white text-3xl hover:text-amber-400 transition-colors" id="next-image">
-        <svg class="w-8 h-8" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+    <button class="absolute right-2 md:right-6 top-1/2 transform -translate-y-1/2 text-white hover:text-amber-400 transition-colors z-10" id="next-image">
+        <svg class="w-6 h-6 md:w-8 md:h-8" fill="none" stroke="currentColor" viewBox="0 0 24 24">
             <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7"/>
         </svg>
     </button>
-    <img id="lightbox-img" class="max-w-[90%] max-h-[90%] object-contain" alt="Gallery image">
+    <img id="lightbox-img" class="max-w-full max-h-full w-auto h-auto object-contain" alt="Gallery image">
 </div>
