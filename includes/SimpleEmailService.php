@@ -45,7 +45,7 @@ class SimpleEmailService
         $headers = [];
         $headers[] = 'MIME-Version: 1.0';
         $headers[] = 'Content-type: text/html; charset=UTF-8';
-        $headers[] = 'From: ' . $this->config['from_name'] . ' <' . $this->config['admin_email'] . '>';
+        $headers[] = 'From: ' . $this->config['from_name'] . ' <' . $this->config['from_email'] . '>';
         $headers[] = 'Reply-To: ' . $formData['name'] . ' <' . $formData['email'] . '>';
         $headers[] = 'X-Mailer: PHP/' . phpversion();
         
@@ -136,8 +136,8 @@ class SimpleEmailService
         $headers = [];
         $headers[] = 'MIME-Version: 1.0';
         $headers[] = 'Content-type: text/html; charset=UTF-8';
-        $headers[] = 'From: ' . $this->config['from_name'] . ' <' . $this->config['admin_email'] . '>';
-        $headers[] = 'Reply-To: ' . $this->config['admin_email'];
+        $headers[] = 'From: ' . $this->config['from_name'] . ' <' . $this->config['from_email'] . '>';
+        $headers[] = 'Reply-To: ' . $this->config['reply_to'];
         $headers[] = 'X-Mailer: PHP/' . phpversion();
         
         return implode("\r\n", $headers);
