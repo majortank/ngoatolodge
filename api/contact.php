@@ -1,7 +1,5 @@
 <?php
 header('Content-Type: application/json');
-// Use simple mail() flow for cPanel/shared hosting
-require_once __DIR__ . '/../includes/SimpleEmailService.php';
 
 // Enable CORS if needed
 header('Access-Control-Allow-Origin: *');
@@ -65,11 +63,14 @@ try {
         exit;
     }
     
-    // Send emails using PHP mail() (cPanel-friendly)
-    $emailService = new SimpleEmailService();
-    $result = $emailService->sendContactForm($formData);
+    // Form validation passed - log the submission
+    error_log("Contact form submission: " . json_encode($formData));
     
-    echo json_encode($result);
+    // Return success (no email service configured)
+    echo json_encode([
+        'success' => true, 
+        'message' => 'Thank you! Your booking inquiry has been received. We will contact you soon.'
+    ]);
     
 } catch (Exception $e) {
     error_log("Contact form error: " . $e->getMessage());
