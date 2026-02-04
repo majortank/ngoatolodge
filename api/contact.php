@@ -1,5 +1,6 @@
 <?php
 header('Content-Type: application/json');
+require_once __DIR__ . '/../includes/EmailService.php';
 
 // Enable CORS if needed
 header('Access-Control-Allow-Origin: *');
@@ -63,14 +64,11 @@ try {
         exit;
     }
     
-    // Form validation passed - log the submission
-    error_log("Contact form submission: " . json_encode($formData));
+    // Send emails via PHPMailer
+    $emailService = new EmailService();
+    $result = $emailService->sendContactForm($formData);
     
-    // Return success (no email service configured)
-    echo json_encode([
-        'success' => true, 
-        'message' => 'Thank you! Your booking inquiry has been received. We will contact you soon.'
-    ]);
+    echo json_encode($result);
     
 } catch (Exception $e) {
     error_log("Contact form error: " . $e->getMessage());
