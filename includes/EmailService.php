@@ -55,7 +55,7 @@ class EmailService
             error_log("Email sending failed: " . $e->getMessage());
             return [
                 'success' => false,
-                'message' => 'Sorry, there was an error sending your message. Please try calling us directly at 082 427 6104.'
+                'message' => 'Sorry, there was an error sending your message. Please try calling us directly at 082 427 6104 or 076 595 9585.'
             ];
         }
     }
@@ -216,7 +216,7 @@ class EmailService
                     <p>If you have any immediate questions, please don\'t hesitate to contact us:</p>
                     
                     <div class="contact-info">
-                        <p style="margin: 5px 0;"><strong>Phone:</strong> 082 427 6104</p>
+                        <p style="margin: 5px 0;"><strong>Phone:</strong> 082 427 6104 / 076 595 9585</p>
                         <p style="margin: 5px 0;"><strong>Email:</strong> ngoatomogoshadi7@gmail.com</p>
                     </div>
                     
@@ -241,7 +241,7 @@ class EmailService
         $text .= "Check-out: {$data['checkout']}\n\n";
         $text .= "Our team will review your request and get back to you within 24 hours.\n\n";
         $text .= "Contact us:\n";
-        $text .= "Phone: 082 427 6104\n";
+        $text .= "Phone: 082 427 6104 / 076 595 9585\n";
         $text .= "Email: ngoatomogoshadi7@gmail.com\n\n";
         $text .= "Warm regards,\nNgoato Mogoshadi Lodge Team";
         return $text;

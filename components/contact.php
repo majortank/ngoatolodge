@@ -15,7 +15,7 @@
                     [
                         'icon' => 'fas fa-phone',
                         'title' => 'Phone',
-                        'content' => '<a href="tel:0824276104" class="text-stone-600 hover:text-amber-600 transition-colors">082 427 6104</a>'
+                        'content' => '<a href="tel:0824276104" class="text-stone-600 hover:text-amber-600 transition-colors">082 427 6104</a> / <a href="tel:0765959585" class="text-stone-600 hover:text-amber-600 transition-colors">076 595 9585</a>'
                     ],
                     [
                         'icon' => 'fas fa-envelope',
