@@ -161,42 +161,62 @@ document.querySelectorAll('a[href^="#"]').forEach(anchor => {
 });
 
 // Form submission
-const bookingForm = document.getElementById('bookingForm');
+const bookingForm = document.getElementById('booking-form');
+const formMessage = document.getElementById('form-message');
+const submitBtn = document.getElementById('submit-btn');
 
 if (bookingForm) {
-    bookingForm.addEventListener('submit', (e) => {
+    bookingForm.addEventListener('submit', async (e) => {
         e.preventDefault();
-        
-        const formData = {
-            name: document.getElementById('name').value,
-            email: document.getElementById('email').value,
-            phone: document.getElementById('phone').value,
-            checkin: document.getElementById('checkin').value,
-            checkout: document.getElementById('checkout').value,
-            message: document.getElementById('message').value
-        };
-        
-        // Create email body
-        const emailBody = `
-Name: ${formData.name}
-Email: ${formData.email}
-Phone: ${formData.phone}
-Check-in: ${formData.checkin}
-Check-out: ${formData.checkout}
-Message: ${formData.message}
-        `.trim();
-        
-        // Create mailto link
-        const mailtoLink = `mailto:ngoatomogoshadi7@gmail.com?subject=Booking Inquiry from ${encodeURIComponent(formData.name)}&body=${encodeURIComponent(emailBody)}`;
-        
-        // Open email client
-        window.location.href = mailtoLink;
-        
-        // Show success message
-        alert('Thank you for your inquiry! Your email client will open to send your booking request.');
-        
-        // Reset form
-        bookingForm.reset();
+
+        if (submitBtn) {
+            submitBtn.disabled = true;
+            submitBtn.querySelector('.btn-text')?.classList.add('hidden');
+            submitBtn.querySelector('.btn-loading')?.classList.remove('hidden');
+        }
+
+        if (formMessage) {
+            formMessage.classList.add('hidden');
+            formMessage.textContent = '';
+        }
+
+        try {
+            const response = await fetch(bookingForm.action, {
+                method: 'POST',
+                body: new FormData(bookingForm)
+            });
+
+            const result = await response.json();
+
+            if (formMessage) {
+                formMessage.classList.remove('hidden');
+                formMessage.className = result.success
+                    ? 'mb-6 rounded-lg bg-green-50 border border-green-200 text-green-800 px-4 py-3'
+                    : 'mb-6 rounded-lg bg-red-50 border border-red-200 text-red-800 px-4 py-3';
+                formMessage.textContent = result.message || 'Unexpected response from server.';
+            }
+
+            if (!result.success) {
+                console.error('Contact form error:', result.message || result);
+            }
+
+            if (result.success) {
+                bookingForm.reset();
+            }
+        } catch (error) {
+            console.error('Contact form request failed:', error);
+            if (formMessage) {
+                formMessage.classList.remove('hidden');
+                formMessage.className = 'mb-6 rounded-lg bg-red-50 border border-red-200 text-red-800 px-4 py-3';
+                formMessage.textContent = 'Network error. Please try again.';
+            }
+        } finally {
+            if (submitBtn) {
+                submitBtn.disabled = false;
+                submitBtn.querySelector('.btn-text')?.classList.remove('hidden');
+                submitBtn.querySelector('.btn-loading')?.classList.add('hidden');
+            }
+        }
     });
 }
 
