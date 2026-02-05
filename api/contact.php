@@ -48,12 +48,14 @@ try {
     $checkin = DateTime::createFromFormat('Y-m-d', $formData['checkin']);
     $checkout = DateTime::createFromFormat('Y-m-d', $formData['checkout']);
     $today = new DateTime();
+    $today->setTime(0, 0, 0); // Reset to start of day for accurate comparison
     
     if (!$checkin || !$checkout) {
         echo json_encode(['success' => false, 'message' => 'Please enter valid dates']);
         exit;
     }
     
+    $checkin->setTime(0, 0, 0);
     if ($checkin < $today) {
         echo json_encode(['success' => false, 'message' => 'Check-in date cannot be in the past']);
         exit;
