@@ -55,7 +55,7 @@ class EmailService
             error_log("Email sending failed: " . $e->getMessage());
             return [
                 'success' => false,
-                'message' => 'Sorry, there was an error sending your message. Please try calling us directly at 082 427 6104.'
+                'message' => 'Email error: ' . $e->getMessage()
             ];
         }
     }
