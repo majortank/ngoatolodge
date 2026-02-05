@@ -80,7 +80,7 @@ class EmailService
             
         } catch (Exception $e) {
             error_log("Admin notification failed: " . $e->getMessage());
-            return false;
+            throw $e;
         }
     }
 
@@ -104,7 +104,7 @@ class EmailService
             
         } catch (Exception $e) {
             error_log("Guest confirmation failed: " . $e->getMessage());
-            return false;
+            throw $e;
         }
     }
 
